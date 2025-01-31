@@ -59,7 +59,7 @@ const blogs = filenames.map((file) => {
 
 const Blog = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2">
       <h1 className="text-4xl font-bold mb-8 text-center">Blog</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
