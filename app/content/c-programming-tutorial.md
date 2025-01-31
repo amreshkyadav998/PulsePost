@@ -3,7 +3,7 @@ title: C Programming Tutorial
 description: This is JavaScript tutorial and this is for learning JavaScript
 slug: c-programming-tutorial
 date: 02/03/2025
-author: Harry
+author: Amresh
 image: "/image_home1.jpg"
 ---
 
