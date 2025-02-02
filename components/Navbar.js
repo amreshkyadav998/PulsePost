@@ -68,6 +68,10 @@ const Navbar = () => {
                     <Link href="/contact" className="hover:scale-105 hover:font-semibold transition-transform duration-300">
                         Contact
                     </Link>
+                    {/* Added */}
+                    <Link href="/uploadblog" className="hover:scale-105 hover:font-semibold transition-transform duration-300">
+                        UploadBlog
+                    </Link>
                     <div className='flex items-center'>
                         <Button className="mx-1" variant="outline">Login</Button>
                         <Button className="mx-1" variant="outline">Signup</Button>
@@ -100,6 +104,10 @@ const Navbar = () => {
                                         </Link>
                                         <Link href="/contact">
                                             Contact
+                                        </Link>
+                                        {/* //added */}
+                                        <Link href="/uploadblog">
+                                            UploadBlog
                                         </Link>
                                         <div>
                                             <Button className="mx-1 text-xs" variant="outline">Login</Button>

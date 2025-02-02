@@ -103,3 +103,72 @@ export default function Contact() {
     </div>
   );
 }
+
+
+// import { useState } from "react";
+// import { useForm } from "react-hook-form";
+
+// const BlogUploadForm = () => {
+//   const { register, handleSubmit, reset } = useForm();
+//   const [image, setImage] = useState(null);
+//   const [loading, setLoading] = useState(false);
+
+//   const uploadImage = async (file) => {
+//     const formData = new FormData();
+//     formData.append("file", file);
+//     formData.append("upload_preset", "your_upload_preset");
+
+//     const res = await fetch("https://api.cloudinary.com/v1_1/your_cloud_name/image/upload", {
+//       method: "POST",
+//       body: formData,
+//     });
+
+//     const data = await res.json();
+//     return data.secure_url;
+//   };
+
+//   const onSubmit = async (formData) => {
+//     setLoading(true);
+//     let imageUrl = "";
+
+//     if (image) {
+//       imageUrl = await uploadImage(image);
+//     }
+
+//     const blogData = {
+//       title: formData.title,
+//       content: formData.content,
+//       image: imageUrl,
+//     };
+
+//     const res = await fetch("/api/blogs", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(blogData),
+//     });
+
+//     if (res.ok) {
+//       alert("Blog uploaded successfully!");
+//       reset();
+//       setImage(null);
+//     }
+//     setLoading(false);
+//   };
+
+//   return (
+//     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+//       <h2 className="text-xl font-bold mb-4">Upload Your Blog</h2>
+//       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+//         <input type="text" {...register("title", { required: true })} placeholder="Title" className="w-full p-2 border rounded" />
+//         <textarea {...register("content", { required: true })} placeholder="Blog Content" className="w-full p-2 border rounded h-40"></textarea>
+//         <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full" />
+//         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded" disabled={loading}>
+//           {loading ? "Uploading..." : "Submit Blog"}
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default BlogUploadForm;
+
