@@ -99,3 +99,78 @@ const Blog = () => {
 };
 
 export default Blog;
+
+
+
+// "use client"
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { buttonVariants } from "@/components/ui/button";
+
+// const Blog = () => {
+//   const [blogs, setBlogs] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     // Fetch blog posts from your backend API
+//     const fetchBlogs = async () => {
+//       try {
+//         const res = await fetch("http://localhost:5000/api/blogs");
+//         const data = await res.json();
+//         setBlogs(data);  // Assuming the response is an array of blog objects
+//       } catch (error) {
+//         console.error("Error fetching blogs:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchBlogs();
+//   }, []);
+
+//   if (loading) {
+//     return <div>Loading blogs...</div>;
+//   }
+
+//   return (
+//     <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 p-4">
+//       <h1 className="text-4xl font-bold mb-8 text-center">Blog</h1>
+
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+//         {blogs.map((blog, index) => (
+//           <div key={index} className="rounded-lg shadow-md overflow-hidden dark:border-2">
+//             {/* Blog Image */}
+//             {blog.image && (
+//               <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover" />
+//             )}
+
+//             {/* Blog Content */}
+//             <div className="p-4">
+//               <h2 className="text-2xl font-bold mb-2">{blog.title}</h2>
+//               <p className="mb-4">{blog.description}</p>
+
+//               <div className="text-sm mb-4">
+//                 <span>By {blog.author}</span> |{" "}
+//                 <span>
+//                   {new Date(blog.date).toLocaleDateString("en-GB", {
+//                     day: "2-digit",
+//                     month: "long",
+//                     year: "numeric",
+//                   })}
+//                 </span>
+//               </div>
+
+//               {/* Blog Post Link */}
+//               <Link href={`/blogpost/${blog.slug}`} className={buttonVariants({ variant: "outline" })}>
+//                 Read More
+//               </Link>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Blog;
+
