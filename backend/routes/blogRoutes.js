@@ -14,14 +14,16 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
     const fileFormat = file.mimetype.split("/")[1]; // Extract format from MIME type
-    
+
     // Ensure the file format is valid
     if (!allowedFormats.includes(fileFormat)) {
-      throw new Error("Invalid file format. Allowed formats are png, jpeg, jpg, svg, webp, avif, gif.");
+      throw new Error(
+        "Invalid file format. Allowed formats are png, jpeg, jpg, svg, webp, avif, gif."
+      );
     }
-    
+
     return {
-      folder: "PulsePostUpload",  // Set the folder in Cloudinary
+      folder: "PulsePostUpload", // Set the folder in Cloudinary
       format: fileFormat, // Dynamically set the format based on the file type
       public_id: Date.now() + "-" + file.originalname.replace(/\s+/g, "_"),
     };
@@ -35,7 +37,7 @@ const upload = multer({ storage });
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const { title, description, slug, author, content } = req.body;
-    
+
     // Ensure required fields are present
     if (!title || !description || !slug || !author || !content) {
       return res.status(400).json({ error: "All fields are required!" });
@@ -47,7 +49,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     const newBlog = new Blog({
       title,
       description,
-      slug,            // Make sure slug is included here
+      slug, // Make sure slug is included here
       author,
       image: imageUrl,
       content,
@@ -59,6 +61,46 @@ router.post("/", upload.single("image"), async (req, res) => {
     res.status(201).json({ success: true, blog: newBlog });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const blogs = await Blog.find(); // Fetch all blogs from the database
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// DELETE a blog post by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(404).json({ success: false, error: "Blog not found" });
+    }
+
+    await Blog.findByIdAndDelete(id);
+    res
+      .status(200)
+      .json({ success: true, message: "Blog deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.get("/api/blogs/:slug", async (req, res) => {
+  const { slug } = req.params;
+  try {
+    const blog = await Blog.findOne({ slug }); // Assuming you're using MongoDB
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+    res.json(blog);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 });
 

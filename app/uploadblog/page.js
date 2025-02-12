@@ -41,7 +41,7 @@ export default function UploadBlogPage() {
     formData.append("image", image); // Attach image file
   
     try {
-      const response = await fetch("http://localhost:5000/api/blogs", {
+      const response = await fetch("http://localhost:4000/api/blogs", {
         method: "POST",
         body: formData,
       });
