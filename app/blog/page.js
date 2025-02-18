@@ -200,20 +200,38 @@ export default function BlogPage() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Blog Posts</h1>
-      <div className="grid gap-6">
+    <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 p-4">
+      <h1 className="text-4xl font-bold mb-8 text-center">Blog</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogs.map((blog) => (
-          <div key={blog.slug} className="border rounded-lg p-4 shadow-md">
-            <img src={blog.image} alt={blog.title} className="w-full h-40 object-cover rounded-lg" />
-            <h2 className="text-xl font-semibold mt-2">{blog.title}</h2>
-            <p className="text-gray-600">{blog.description}</p>
-            <p className="text-sm text-gray-500">By {blog.author}</p>
-            <Link href={`/blogpost/${blog.slug}`}>
-              <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                Read More
-              </button>
-            </Link>
+          <div key={blog.slug} className="rounded-lg shadow-md overflow-hidden dark:border-2">
+            {/* Blog Image */}
+            {blog.image && (
+              <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover" />
+            )}
+            
+            {/* Blog Content */}
+            <div className="p-4">
+              <h2 className="text-2xl font-bold mb-2">{blog.title}</h2>
+              <p className="mb-4">{blog.description}</p>
+              
+              <div className="text-sm mb-4">
+                <span>By {blog.author}</span> | {" "}
+                <span>{new Date(blog.date).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}</span>
+              </div>
+
+              {/* Blog Post Link */}
+              <Link href={`/blogpost/${blog.slug}`}>
+                <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                  Read More
+                </button>
+              </Link>
+            </div>
           </div>
         ))}
       </div>
