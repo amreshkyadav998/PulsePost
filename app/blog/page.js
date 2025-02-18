@@ -235,16 +235,16 @@ export default function BlogPage() {
   };
 
   // Perform blog deletion
-  const deleteBlog = async (slug) => {
+  const deleteBlog = async (id) => {  // Change parameter from slug to id
     try {
-      const res = await fetch(`https://pulsepost-1-backend.onrender.com/api/blogs/${slug}`, {
+      const res = await fetch(`https://pulsepost-1-backend.onrender.com/api/blogs/${id}`, {
         method: "DELETE",
       });
-
+  
       const result = await res.json();
       if (result.success) {
         toast.success("Blog deleted successfully!");
-        setBlogs(blogs.filter((blog) => blog.slug !== slug)); // Update UI
+        setBlogs(blogs.filter((blog) => blog._id !== id));  // Filter by _id
       } else {
         toast.error("Failed to delete blog.");
       }
@@ -253,6 +253,7 @@ export default function BlogPage() {
       toast.error("Error deleting blog.");
     }
   };
+  
 
   return (
     <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 p-4">
@@ -267,7 +268,7 @@ export default function BlogPage() {
 
             {/* Delete Icon */}
             <button
-              onClick={() => handleDelete(blog.slug)}
+              onClick={() => handleDelete(blog._id)}
               className="absolute top-3 right-3 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
             >
               <FaTrash size={16} />
