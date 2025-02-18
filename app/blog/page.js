@@ -184,40 +184,102 @@
 
 // export default BlogPage;
 
-
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { toast, Toaster } from "react-hot-toast";
+import { FaTrash } from "react-icons/fa";
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("https://pulsepost-1-backend.onrender.com/api/blogs") // Fetch from backend
-      .then((res) => res.json())
-      .then((data) => setBlogs(data))
-      .catch((err) => console.error("Error fetching blogs:", err));
+    fetchBlogs();
   }, []);
+
+  // Fetch blogs from backend
+  const fetchBlogs = async () => {
+    try {
+      const res = await fetch("https://pulsepost-1-backend.onrender.com/api/blogs");
+      const data = await res.json();
+      setBlogs(data);
+    } catch (err) {
+      console.error("Error fetching blogs:", err);
+    }
+  };
+
+  // Handle blog deletion with toast confirmation
+  const handleDelete = async (slug) => {
+    toast((t) => (
+      <div className="flex flex-col">
+        <p className="mb-2">Are you sure you want to delete this blog?</p>
+        <div className="flex justify-end gap-2">
+          <button
+            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+            onClick={() => {
+              deleteBlog(slug);
+              toast.dismiss(t.id);
+            }}
+          >
+            Yes, Delete
+          </button>
+          <button
+            className="px-3 py-1 bg-gray-300 text-black rounded hover:bg-gray-400"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
+  // Perform blog deletion
+  const deleteBlog = async (slug) => {
+    try {
+      const res = await fetch(`https://pulsepost-1-backend.onrender.com/api/blogs/${slug}`, {
+        method: "DELETE",
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Blog deleted successfully!");
+        setBlogs(blogs.filter((blog) => blog.slug !== slug)); // Update UI
+      } else {
+        toast.error("Failed to delete blog.");
+      }
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+      toast.error("Error deleting blog.");
+    }
+  };
 
   return (
     <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 p-4">
+      <Toaster position="top-center" reverseOrder={false} />
       <h1 className="text-4xl font-bold mb-8 text-center">Blog</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogs.map((blog) => (
-          <div key={blog.slug} className="rounded-lg shadow-md overflow-hidden dark:border-2">
+          <div key={blog.slug} className="rounded-lg shadow-md overflow-hidden dark:border-2 relative">
             {/* Blog Image */}
-            {blog.image && (
-              <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover" />
-            )}
-            
+            {blog.image && <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover" />}
+
+            {/* Delete Icon */}
+            <button
+              onClick={() => handleDelete(blog.slug)}
+              className="absolute top-3 right-3 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
+            >
+              <FaTrash size={16} />
+            </button>
+
             {/* Blog Content */}
             <div className="p-4">
               <h2 className="text-2xl font-bold mb-2">{blog.title}</h2>
               <p className="mb-4">{blog.description}</p>
-              
+
               <div className="text-sm mb-4">
-                <span>By {blog.author}</span> | {" "}
+                <span>By {blog.author}</span> |{" "}
                 <span>{new Date(blog.date).toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "long",
@@ -238,4 +300,5 @@ export default function BlogPage() {
     </div>
   );
 }
+
 
