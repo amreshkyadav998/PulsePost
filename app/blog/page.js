@@ -97,89 +97,127 @@
 
 // export default Blog;
 
+// "use client";
+// import { useEffect, useState } from "react";
+// import { useRouter } from "next/navigation";
+// import toast, { Toaster } from "react-hot-toast";
+
+// const BlogPage = () => {
+//   const [blogs, setBlogs] = useState([]);
+//   const router = useRouter();
+
+//   useEffect(() => {
+//     fetchBlogs();
+//   }, []);
+
+//   const fetchBlogs = async () => {
+//     try {
+//       const response = await fetch("http://localhost:4000/api/blogs");
+//       if (!response.ok) throw new Error("Failed to fetch blogs");
+//       const data = await response.json();
+//       setBlogs(data);
+//     } catch (error) {
+//       console.error("Error fetching blogs:", error);
+//     }
+//   };
+
+//   const deleteBlog = async (id) => {
+//     try {
+//       const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
+//         method: "DELETE",
+//       });
+//       if (!response.ok) throw new Error("Failed to delete blog");
+
+//       setBlogs(blogs.filter((blog) => blog._id !== id));
+//       toast.success("Blog deleted successfully!");
+//     } catch (error) {
+//       console.error("Error deleting blog:", error);
+//       toast.error("Failed to delete blog.");
+//     }
+//   };
+
+//   return (
+//     <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2">
+//       <Toaster position="top-right" />
+//       <h1 className="text-2xl font-bold mb-4 text-center">Blogs</h1>
+//       {blogs.length > 0 ? (
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//           {blogs.map((blog) => (
+//             <div
+//               key={blog._id}
+//               className="border p-4 rounded-lg shadow-md bg-white"
+//             >
+//               <img
+//                 src={blog.image || "/assets/placeholder.jpg"}
+//                 alt={blog.title}
+//                 className="w-full h-48 object-cover rounded-lg mb-4"
+//                 onError={(e) => (e.target.src = "/assets/placeholder.jpg")}
+//               />
+//               <h2 className="text-xl font-semibold">{blog.title}</h2>
+//               <p className="text-gray-600">{blog.description}</p>
+//               <p className="text-sm text-gray-500 mt-2">By {blog.author}</p>
+
+//               <div className="mt-4 flex justify-between">
+//                 <button
+//                   onClick={() => router.push(`/blogpost/${blog.slug}`)}
+//                   className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition"
+//                 >
+//                   Read More
+//                 </button>
+
+//                 <button
+//                   onClick={() => deleteBlog(blog._id)}
+//                   className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition"
+//                 >
+//                   Delete
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       ) : (
+//         <p className="text-center text-gray-500">No blogs available.</p>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default BlogPage;
+
+
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
-const BlogPage = () => {
+export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
-  const router = useRouter();
 
   useEffect(() => {
-    fetchBlogs();
+    fetch("http://localhost:4000/api/blogs") // Fetch from backend
+      .then((res) => res.json())
+      .then((data) => setBlogs(data))
+      .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
 
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/api/blogs");
-      if (!response.ok) throw new Error("Failed to fetch blogs");
-      const data = await response.json();
-      setBlogs(data);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    }
-  };
-
-  const deleteBlog = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) throw new Error("Failed to delete blog");
-
-      setBlogs(blogs.filter((blog) => blog._id !== id));
-      toast.success("Blog deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-      toast.error("Failed to delete blog.");
-    }
-  };
-
   return (
-    <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2">
-      <Toaster position="top-right" />
-      <h1 className="text-2xl font-bold mb-4 text-center">Blogs</h1>
-      {blogs.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((blog) => (
-            <div
-              key={blog._id}
-              className="border p-4 rounded-lg shadow-md bg-white"
-            >
-              <img
-                src={blog.image || "/assets/placeholder.jpg"}
-                alt={blog.title}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-                onError={(e) => (e.target.src = "/assets/placeholder.jpg")}
-              />
-              <h2 className="text-xl font-semibold">{blog.title}</h2>
-              <p className="text-gray-600">{blog.description}</p>
-              <p className="text-sm text-gray-500 mt-2">By {blog.author}</p>
-
-              <div className="mt-4 flex justify-between">
-                <button
-                  onClick={() => router.push(`/blogpost/${blog.slug}`)}
-                  className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition"
-                >
-                  Read More
-                </button>
-
-                <button
-                  onClick={() => deleteBlog(blog._id)}
-                  className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="text-center text-gray-500">No blogs available.</p>
-      )}
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Blog Posts</h1>
+      <div className="grid gap-6">
+        {blogs.map((blog) => (
+          <div key={blog.slug} className="border rounded-lg p-4 shadow-md">
+            <img src={blog.image} alt={blog.title} className="w-full h-40 object-cover rounded-lg" />
+            <h2 className="text-xl font-semibold mt-2">{blog.title}</h2>
+            <p className="text-gray-600">{blog.description}</p>
+            <p className="text-sm text-gray-500">By {blog.author}</p>
+            <Link href={`/blogpost/${blog.slug}`}>
+              <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Read More
+              </button>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
-};
+}
 
-export default BlogPage;

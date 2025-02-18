@@ -1,49 +1,80 @@
+// "use client";
+// import { useEffect, useState } from "react";
+// import { useRouter } from "next/navigation";
+
+// const BlogPost = ({ params }) => {
+//   const { slug } = params;
+//   const [blog, setBlog] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const router = useRouter();
+
+//   useEffect(() => {
+//     const fetchBlog = async () => {
+//       try {
+//         const response = await fetch(`http://localhost:4000/api/blogs/${slug}`);
+//         if (!response.ok) throw new Error("Blog not found");
+//         const data = await response.json();
+//         setBlog(data);
+//       } catch (error) {
+//         console.error("Error fetching blog:", error);
+//         router.push("/404");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchBlog();
+//   }, [slug, router]);
+
+//   if (loading) return <p className="text-center">Loading...</p>;
+//   if (!blog) return <p className="text-center">Blog not found</p>;
+
+//   return (
+//     <div className="max-w-3xl mx-auto my-10 p-6 shadow-md rounded-lg">
+//       <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
+//       <p className="text-gray-600 mb-2">By {blog.author}</p>
+//       <img
+//         src={blog.image || "/assets/placeholder.jpg"}
+//         alt={blog.title}
+//         className="w-full h-64 object-cover rounded-lg mb-6"
+//       />
+//       <p className="text-lg">{blog.content}</p>
+//     </div>
+//   );
+// };
+
+// export default BlogPost;
+
+
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
-const BlogPost = ({ params }) => {
-  const { slug } = params;
+export default function BlogPostPage() {
+  const { slug } = useParams();
   const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  console.log("Current Slug:", slug);
+
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/api/blogs/${slug}`);
-        if (!response.ok) throw new Error("Blog not found");
-        const data = await response.json();
-        setBlog(data);
-      } catch (error) {
-        console.error("Error fetching blog:", error);
-        router.push("/404");
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetch(`http://localhost:4000/api/blogs/${slug}`) // Fetch blog by slug
+      .then((res) => res.json())
+      .then((data) => setBlog(data))
+      .catch((err) => console.error("Error fetching blog:", err));
+  }, [slug]);
 
-    fetchBlog();
-  }, [slug, router]);
-
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (!blog) return <p className="text-center">Blog not found</p>;
+  if (!blog) return <p className="text-center text-gray-600">Loading...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto my-10 p-6 shadow-md rounded-lg">
+    <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
-      <p className="text-gray-600 mb-2">By {blog.author}</p>
-      <img
-        src={blog.image || "/assets/placeholder.jpg"}
-        alt={blog.title}
-        className="w-full h-64 object-cover rounded-lg mb-6"
-      />
-      <p className="text-lg">{blog.content}</p>
+      <p className="text-gray-500 text-sm">By {blog.author}</p>
+      <img src={blog.image} alt={blog.title} className="w-full h-60 object-cover rounded-lg mt-4" />
+      <p className="mt-6 text-lg">{blog.content}</p>
     </div>
   );
-};
+}
 
-export default BlogPost;
 
 
 

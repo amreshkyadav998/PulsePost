@@ -92,7 +92,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.get("/api/blogs/:slug", async (req, res) => {
+router.get("/:slug", async (req, res) => {
   const { slug } = req.params;
   try {
     const blog = await Blog.findOne({ slug }); // Assuming you're using MongoDB
