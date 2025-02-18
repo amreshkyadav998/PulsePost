@@ -57,7 +57,7 @@ export default function BlogPostPage() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/blogs/${slug}`) // Fetch blog by slug
+    fetch(`https://pulsepost-1-backend.onrender.com/api/blogs/${slug}`) // Fetch blog by slug
       .then((res) => res.json())
       .then((data) => setBlog(data))
       .catch((err) => console.error("Error fetching blog:", err));

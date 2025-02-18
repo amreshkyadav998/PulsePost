@@ -9,7 +9,27 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS to allow specific origins and all methods
+const allowedOrigins = [
+  "https://pulsepost-1-backend.onrender.com",
+  "http://localhost:3000"
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow cookies and authentication headers
+    methods: "GET,POST,PUT,DELETE", // Allow specific methods
+    allowedHeaders: "Content-Type,Authorization" // Allow specific headers
+  })
+);
 
 // Connect to MongoDB
 mongoose

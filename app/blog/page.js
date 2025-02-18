@@ -193,7 +193,7 @@ export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/blogs") // Fetch from backend
+    fetch("https://pulsepost-1-backend.onrender.com/api/blogs") // Fetch from backend
       .then((res) => res.json())
       .then((data) => setBlogs(data))
       .catch((err) => console.error("Error fetching blogs:", err));

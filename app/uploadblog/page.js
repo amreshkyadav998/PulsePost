@@ -26,7 +26,7 @@ export default function UploadBlogPage() {
     formData.append("image", image);
 
     try {
-      const response = await fetch("http://localhost:4000/api/blogs", {
+      const response = await fetch("https://pulsepost-1-backend.onrender.com/api/blogs", {
         method: "POST",
         body: formData,
       });
