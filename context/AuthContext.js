@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post("http://localhost:4000/api/auth/login", { email, password });
+      const res = await axios.post("https://pulsepost-1-backend.onrender.com/api/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
     } catch (error) {
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      await axios.post("http://localhost:4000/api/auth/register", { username, email, password });
+      await axios.post("https://pulsepost-1-backend.onrender.com/api/auth/register", { username, email, password });
     } catch (error) {
       console.error(error);
     }
