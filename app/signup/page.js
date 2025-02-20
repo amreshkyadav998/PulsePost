@@ -26,7 +26,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors px-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors px-4">
       <Toaster position="top-right" reverseOrder={false} />
 
       {/* Three.js Background */}
@@ -34,7 +34,7 @@ export default function SignupPage() {
 
       <form 
         onSubmit={handleSubmit} 
-        className="relative z-10 bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 sm:p-8 max-w-xs sm:max-w-sm md:max-w-md w-full"
+        className="relative z-10 bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-6 sm:p-8 max-w-xs sm:max-w-sm md:max-w-md w-full"
       >
         <h2 className="text-center text-2xl font-bold mb-4 text-gray-900 dark:text-white">
           Sign Up
