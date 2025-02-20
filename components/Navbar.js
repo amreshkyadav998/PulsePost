@@ -1,7 +1,7 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import LoadingBar from 'react-top-loading-bar';
 import { usePathname } from 'next/navigation';
 import {
@@ -11,78 +11,63 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet"
-
+} from "@/components/ui/sheet";
 import { ModeToggle } from './theme-btn';
-import { useEffect, useState } from 'react';
-
-
 
 const Navbar = () => {
-
-    const [progress, setProgress] = useState(0)
-    const pathname = usePathname()
-
-    useEffect(() => {
-      setProgress(20)
-
-      setTimeout(() => {
-        setProgress(40)
-      }, 100);
-
-      setTimeout(() => {
-        setProgress(100)
-      }, 400);
-     
-    }, [pathname])
-
-
+    const [progress, setProgress] = useState(0);
+    const pathname = usePathname();
 
     useEffect(() => {
-      setTimeout(() => {
-       setProgress(0)
-      }, 50);
-    }, [])
-    
-    
+        setProgress(20);
+
+        setTimeout(() => {
+            setProgress(40);
+        }, 100);
+
+        setTimeout(() => {
+            setProgress(100);
+        }, 400);
+    }, [pathname]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setProgress(0);
+        }, 50);
+    }, []);
+
     return (
         <nav className="p-4 bg-background/50 sticky top-0 backdrop-blur border-b z-10 ml-2 mr-2 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2">
-               <LoadingBar
-        color='#933ce6'
-        progress={progress}
-        onLoaderFinished={() => setProgress(0)}
-      />
+            <LoadingBar
+                color='#933ce6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <div className="container mx-auto flex justify-between items-center">
-                <Link href={"/"}><div className="text-lg font-bold">
-                    PulsePost
-                </div></Link>
+                <Link href="/">
+                    <div className="text-lg font-bold">PulsePost</div>
+                </Link>
                 <div className="hidden md:flex space-x-4 items-center">
-                    <Link href="/" className="hover:scale-105 hover:font-semibold transition-transform duration-300"> Home
-                    </Link>
-                    <Link href="/about" className="hover:scale-105 hover:font-semibold transition-transform duration-300">
-                        About
-                    </Link>
-                    <Link href="/blog" className="hover:scale-105 hover:font-semibold transition-transform duration-300">
-                        Blog
-                    </Link>
-                    <Link href="/contact" className="hover:scale-105 hover:font-semibold transition-transform duration-300">
-                        Contact
-                    </Link>
-                    {/* Added */}
-                    <Link href="/uploadblog" className="hover:scale-105 hover:font-semibold transition-transform duration-300">
-                        UploadBlog
-                    </Link>
+                    <Link href="/" className="hover:scale-105 hover:font-semibold transition-transform duration-300">Home</Link>
+                    <Link href="/about" className="hover:scale-105 hover:font-semibold transition-transform duration-300">About</Link>
+                    <Link href="/blog" className="hover:scale-105 hover:font-semibold transition-transform duration-300">Blog</Link>
+                    <Link href="/contact" className="hover:scale-105 hover:font-semibold transition-transform duration-300">Contact</Link>
+                    <Link href="/uploadblog" className="hover:scale-105 hover:font-semibold transition-transform duration-300">UploadBlog</Link>
                     <div className='flex items-center'>
-                        <Button className="mx-1" variant="outline">Login</Button>
-                        <Button className="mx-1" variant="outline">Signup</Button>
+                        <Link href="/login">
+                            <Button className="mx-1" variant="outline">Login</Button>
+                        </Link>
+                        <Link href="/signup">
+                            <Button className="mx-1" variant="outline">Signup</Button>
+                        </Link>
                         <ModeToggle />
                     </div>
                 </div>
 
                 <div className="md:hidden">
-                        <span className="mx-2"> 
-                            <ModeToggle />
-                        </span>
+                    <span className="mx-2">
+                        <ModeToggle />
+                    </span>
                     <Sheet>
                         <SheetTrigger>
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -94,42 +79,28 @@ const Navbar = () => {
                                 <SheetTitle className="font-bold my-4">PulsePost</SheetTitle>
                                 <SheetDescription>
                                     <div className="flex flex-col gap-6">
-                                        <Link href="/"> Home
-                                        </Link>
-                                        <Link href="/about">
-                                            About
-                                        </Link>
-                                        <Link href="/blog">
-                                            Blog
-                                        </Link>
-                                        <Link href="/contact">
-                                            Contact
-                                        </Link>
-                                        {/* //added */}
-                                        <Link href="/uploadblog">
-                                            UploadBlog
-                                        </Link>
+                                        <Link href="/">Home</Link>
+                                        <Link href="/about">About</Link>
+                                        <Link href="/blog">Blog</Link>
+                                        <Link href="/contact">Contact</Link>
+                                        <Link href="/uploadblog">UploadBlog</Link>
                                         <div>
-                                            <Button className="mx-1 text-xs" variant="outline">Login</Button>
-                                            <Button className="mx-1 text-xs" variant="outline">Signup</Button>
-
+                                            <Link href="/login">
+                                                <Button className="mx-1 text-xs" variant="outline">Login</Button>
+                                            </Link>
+                                            <Link href="/signup">
+                                                <Button className="mx-1 text-xs" variant="outline">Signup</Button>
+                                            </Link>
                                         </div>
-
                                     </div>
                                 </SheetDescription>
                             </SheetHeader>
                         </SheetContent>
                     </Sheet>
-
                 </div>
-
-
             </div>
-
-
-
         </nav>
     );
 };
 
-export default Navbar
+export default Navbar;

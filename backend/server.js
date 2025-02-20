@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import blogRoutes from "./routes/blogRoutes.js";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +33,9 @@ app.use(
   })
 );
 
+
+app.use(cookieParser());
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -39,6 +44,7 @@ mongoose
 
 // Use Routes
 app.use("/api/blogs", blogRoutes);
+app.use("/api/auth", authRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
