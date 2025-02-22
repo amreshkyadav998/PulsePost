@@ -55,7 +55,6 @@ export default function BlogPostPage() {
   const [blog, setBlog] = useState(null);
   console.log("Current Slug:", slug);
 
-
   useEffect(() => {
     fetch(`https://pulsepost-1-backend.onrender.com/api/blogs/${slug}`) // Fetch blog by slug
       .then((res) => res.json())
@@ -65,15 +64,48 @@ export default function BlogPostPage() {
 
   if (!blog) return <p className="text-center text-gray-600">Loading...</p>;
 
+  // Function to format content and highlight code blocks
+  const formatContent = (content) => {
+    return content.split("\n").map((line, index) =>
+      line.startsWith("```") ? (
+        <pre
+          key={index}
+          className="p-4 rounded-md my-3 overflow-x-auto 
+            bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-green-400"
+        >
+          <code className="whitespace-pre-wrap">{line.replace("```", "")}</code>
+        </pre>
+      ) : (
+        <p key={index} className="mb-4 text-lg text-gray-800 dark:text-gray-300 leading-relaxed">
+          {line}
+        </p>
+      )
+    );
+  };
+
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
-      <p className="text-gray-500 text-sm">By {blog.author}</p>
-      <img src={blog.image} alt={blog.title} className="w-full h-60 object-cover rounded-lg mt-4" />
-      <p className="mt-6 text-lg">{blog.content}</p>
+    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg mt-8">
+      {/* Blog Title */}
+      <h1 className="text-4xl font-bold mb-3 text-gray-900 dark:text-white">{blog.title}</h1>
+
+      {/* Author & Date */}
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
+        By <span className="font-medium">{blog.author}</span>
+      </p>
+
+      {/* Blog Image */}
+      <img
+        src={blog.image}
+        alt={blog.title}
+        className="w-full h-72 object-cover rounded-lg shadow-md"
+      />
+
+      {/* Blog Content with Code Formatting */}
+      <div className="mt-6">{formatContent(blog.content)}</div>
     </div>
   );
 }
+
 
 
 

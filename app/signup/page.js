@@ -26,7 +26,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors px-4">
+    <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 relative min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors px-4">
       <Toaster position="top-right" reverseOrder={false} />
 
       {/* Three.js Background */}

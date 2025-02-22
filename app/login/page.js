@@ -25,7 +25,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 mt-3 flex items-center justify-center bg-gray-100 dark:bg-black transition-colors">
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors overflow-hidden">
       <Toaster position="top-right" reverseOrder={false} />
 
       {/* Three.js Background */}

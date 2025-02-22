@@ -51,7 +51,7 @@ export default function UploadBlogPage() {
     <div className="max-w-2xl mx-auto my-9 p-6 shadow-md rounded-lg">
       <Toaster position="top-center" reverseOrder={false} /> {/* ✅ Toaster only in this page */}
       
-      <h2 className="text-2xl font-bold mb-6 text-center">Upload Your Blog</h2>
+      <h2 className="text-3xl font-bold text-black dark:text-white mb-4 text-center">📝 Upload Your Blog</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input type="text" placeholder="Title" {...register("title", { required: true })} className="w-full p-2 border rounded" />
         <textarea placeholder="Short Description" {...register("description", { required: true })} className="w-full p-2 border rounded"></textarea>
