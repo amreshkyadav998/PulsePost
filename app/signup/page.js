@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
 import AuthContext from "../../context/AuthContext";
-import ThreeBackground from "../../components/ThreeBackground";
+import ThreeBackground from "../../components/ThreeBackgroundwhite";
 
 export default function SignupPage() {
   const { register } = useContext(AuthContext);

@@ -1,3 +1,6 @@
+
+
+
 "use client";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
@@ -61,5 +64,5 @@ export default function ThreeBackground() {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0 z-0"></div>;
-}
+  return <div ref={mountRef} className="absolute inset-0"></div>;
+}  

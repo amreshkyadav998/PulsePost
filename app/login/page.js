@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
 import AuthContext from "../../context/AuthContext";
-import ThreeBackground from "../../components/ThreeBackground"; 
+import ThreeBackground from "../../components/ThreeBackgroundwhite"; 
 
 export default function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -25,7 +25,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors px-4">
+    <div className="ml-6 mr-6 md:ml-12 md:mr-12 sm:ml-2 sm:mr-2 mt-3 flex items-center justify-center bg-gray-100 dark:bg-black transition-colors">
       <Toaster position="top-right" reverseOrder={false} />
 
       {/* Three.js Background */}
