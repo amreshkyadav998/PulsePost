@@ -84,7 +84,7 @@ export default function BlogPostPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg mt-8">
+    <div className="max-w-xl p-6 mx-6 sm:max-w-3xl sm:mx-auto sm:p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg mt-8">
       {/* Blog Title */}
       <h1 className="text-4xl font-bold mb-3 text-gray-900 dark:text-white">{blog.title}</h1>
 
