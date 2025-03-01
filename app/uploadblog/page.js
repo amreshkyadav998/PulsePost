@@ -55,7 +55,7 @@ export default function UploadBlogPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input type="text" placeholder="Title" {...register("title", { required: true })} className="w-full p-2 border rounded" />
         <textarea placeholder="Short Description" {...register("description", { required: true })} className="w-full p-2 border rounded"></textarea>
-        <input type="text" placeholder="Slug (e.g., my-first-blog)" {...register("slug", { required: true })} className="w-full p-2 border rounded" />
+        <input type="text" placeholder="Slug (e.g., first-blog)" {...register("slug", { required: true })} className="w-full p-2 border rounded" />
         <input type="text" placeholder="Author Name" {...register("author", { required: true })} className="w-full p-2 border rounded" />
         <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full p-2 border rounded cursor-pointer" />
         {image && <p className="text-sm text-gray-600 mt-1">Selected: {image.name}</p>}
