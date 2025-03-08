@@ -37,7 +37,7 @@ export default function UploadBlogPage() {
         reset();
         setImage(null);
       } else {
-        toast.error("Failed to upload blog.");
+        toast.error("Failed to upload blog(some error occured).");
       }
     } catch (error) {
       console.error("Error:", error);
