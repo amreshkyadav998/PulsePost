@@ -53,7 +53,7 @@ export default function UploadBlogPage() {
       
       <h2 className="text-3xl font-bold text-black dark:text-white mb-4 text-center">📝 Upload Your Blog</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <input type="text" placeholder="Title" {...register("title", { required: true })} className="w-full p-2 border rounded" />
+        <input type="text" placeholder="Title of Blog" {...register("title", { required: true })} className="w-full p-2 border rounded" />
         <textarea placeholder="Short Description" {...register("description", { required: true })} className="w-full p-2 border rounded"></textarea>
         <input type="text" placeholder="Slug (e.g., first-blog)" {...register("slug", { required: true })} className="w-full p-2 border rounded" />
         <input type="text" placeholder="Author Name" {...register("author", { required: true })} className="w-full p-2 border rounded" />
